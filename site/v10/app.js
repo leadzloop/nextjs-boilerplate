@@ -239,9 +239,9 @@ function pageHome(){
 }
 var F={cat:'alle',opp:'',slp:'',bud:'',sort:'',q:''};
 function pageModellen(){
-  var cats=[['alle','Alle modellen','house'],['tiny','Tiny house','area'],['recreatie','Recreatie','palm'],['permanent','Permanente bewoning','house'],['mantelzorg','Mantelzorg','care'],['tuinkantoor','Tuinkantoor','office'],['zakelijk','Zakelijk','brief']];
+  var cats=[['alle','Alle modellen','house'],['tiny','Tiny house','area'],['recreatie','Recreatie','palm'],['permanent','Permanente bewoning','house'],['mantelzorg','Mantelzorg','care'],['tuinkantoor','Tuinkantoor','office']];
   function sel(id,label,opts){return '<div class="sel-wrap"><select id="'+id+'" aria-label="'+label+'"><option value="">'+label+'</option>'+opts.map(function(o){return '<option value="'+o[0]+'"'+(F[id]===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'+I('chev',1.8)+'</div>'}
-  return '<section class="hero hero-models"><div class="hero-bg" style="'+bg('full_night')+'"></div><div class="wrap"><div class="eyebrow">Onze modulaire woningen</div><h1>Onze modulaire woningen</h1><p>Voor elke levensfase een passende woning.</p></div></section>'+
+  return '<section class="hero hero-models"><div class="hero-bg" style="'+bg('full_night')+'"></div><div class="wrap"><div class="eyebrow">Onze modulaire woningen</div><h1>Onze modulaire woningen</h1><p>Voor iedereen: particulieren en bedrijven, voor elke levensfase een passende woning.</p></div></section>'+
    '<section class="models-page"><div class="wrap"><div class="cats">'+cats.map(function(c){return '<button class="cat'+(F.cat===c[0]?' on':'')+'" data-cat="'+c[0]+'">'+I(c[2])+c[1]+'</button>'}).join('')+'</div>'+
    '<div class="filters">'+sel('opp','Oppervlakte',[['0-35','Tot 35 m²'],['35-50','35 – 50 m²'],['50-999','Meer dan 50 m²']])+sel('slp','Slaapkamers',[['1','1 slaapkamer'],['2','2 slaapkamers'],['3','3 slaapkamers']])+
    sel('bud','Budget',[['0-50000','Tot € 50.000'],['50000-70000','€ 50.000 – € 70.000'],['70000-999999','Vanaf € 70.000']])+sel('sort','Sorteren op',[['pa','Prijs oplopend'],['pd','Prijs aflopend'],['ma','Oppervlakte oplopend'],['md','Oppervlakte aflopend']])+'</div>'+
@@ -346,7 +346,7 @@ function pageContact(){
    '<form class="frm2" novalidate>'+
    '<fieldset><legend><b>1</b>Jouw wensen</legend>'+
    (fromCfg?'':'<div class="q"><span>Welk model?</span>'+chips('model',MODELS.map(function(x){return [x.id,x.name]}).concat([['onbekend','Weet ik nog niet']]),model)+'</div>')+
-   '<div class="q"><span>Waarvoor? <i>(optioneel)</i></span>'+chips('doel',[['recreatie','Recreatie'],['wonen','Permanent wonen'],['mantelzorg','Mantelzorg'],['verhuur','Verhuur'],['zakelijk','Kantoor / zakelijk']],D.doel)+'</div>'+
+   '<div class="q"><span>Waarvoor? <i>(optioneel)</i></span>'+chips('doel',[['recreatie','Recreatie'],['wonen','Permanent wonen'],['mantelzorg','Mantelzorg'],['verhuur','Verhuur'],['kantoor','Kantoor / werkplek']],D.doel)+'</div>'+
    '<div class="q"><span>Wanneer wil je plaatsen? <i>(optioneel)</i></span>'+chips('wanneer',[['asap','Zo snel mogelijk'],['6m','Binnen 6 maanden'],['12m','Binnen 12 maanden'],['orient','Ik oriënteer me']],D.wanneer)+'</div></fieldset>'+
    '<fieldset><legend><b>2</b>Waar sturen we je offerte naartoe?</legend><div class="grid2">'+
    f('naam','Naam',{req:'1',ac:'name',ph:'Voor- en achternaam',err:'Vul je naam in'})+
@@ -387,14 +387,12 @@ function pageInspiratie(){
   return simpleHero('Inspiratie','Inspiratie','Laat je inspireren door onze woningen en interieurs.')+'<section class="simple"><div class="wrap"><p class="intro">Warm hout, grote glaspartijen en sfeervolle verlichting. Bekijk hoe onze klanten hun modulaire woning hebben samengesteld en vind ideeën voor jouw eigen plek.</p><div class="insp">'+
    imgs.map(function(k,i){return '<div'+(i===0?' class="w2"':'')+' style="'+bg(k)+'"></div>'}).join('')+'</div></div></section>';
 }
-function pageZakelijk(){
-  return simpleHero('Zakelijk','Zakelijke oplossingen','Modulaire units voor recreatieparken, hospitality en bedrijven.')+'<section class="simple" style="background:var(--cream)"><div class="wrap"><div class="feat3">'+
-   [['palm','Recreatieparken','Luxe verhuurunits die snel geplaatst zijn en direct rendement opleveren.'],['office','Kantoor & werkplek','Een representatieve werkplek of tuinkantoor, volledig turnkey opgeleverd.'],['care','Zorg & mantelzorg','Comfortabele, levensloopbestendige woonunits voor zorg dichtbij huis.']]
-   .map(function(f){return '<div class="panel">'+I(f[0])+'<h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>'}).join('')+'</div><div class="grid3">'+MODELS.filter(function(m){return m.cat.indexOf('zakelijk')>=0}).map(function(m){return card(m)}).join('')+'</div></div></section>';
-}
 function pageOver(){
   return simpleHero('Over ons','Over NMK Living','Modular homes for a better tomorrow.')+'<section class="simple"><div class="wrap"><p class="intro">NMK Living ontwerpt en bouwt luxe modulaire woningen die overal te plaatsen zijn. Met premium materialen, grote glaspartijen en een volledig turnkey oplevering maken we wonen in de natuur bereikbaar, comfortabel en duurzaam.</p><div class="feat3">'+
    [['leaf','Duurzaam & energiezuinig','Volledig geïsoleerd en klaar voor zonne-energie en warmtepomp.'],['gem','Premium afwerking','Hout, metaal en natuursteen, afgewerkt tot in detail.'],['truck','Turnkey opgeleverd','Van vergunning tot plaatsing: wij regelen het hele traject.']]
+   .map(function(f){return '<div class="panel">'+I(f[0])+'<h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>'}).join('')+'</div></div></section>'+
+   '<section class="simple" style="background:var(--cream)"><div class="wrap"><div class="eyebrow">Voor wie</div><h2 style="font-family:var(--serif);font-weight:400;font-size:clamp(2.8rem,4vw,3.8rem);line-height:1.15;margin:1rem 0 1.6rem">Voor iedereen</h2><p class="intro" style="margin-bottom:3.2rem">Of je nu particulier bent of een bedrijf: we bouwen voor iedereen. Een eigen woning, een vakantieplek, een verhuurunit op een recreatiepark, een tuinkantoor of een mantelzorgwoning. Elk model stel je zelf samen en we leveren het turnkey op.</p><div class="feat3">'+
+   [['house','Wonen & recreatie','Permanent wonen of een eigen plek in de natuur, volledig naar jouw smaak.'],['palm','Verhuur & recreatieparken','Luxe verhuurunits die snel geplaatst zijn en direct rendement opleveren.'],['care','Werkplek & zorg','Een representatief tuinkantoor of een levensloopbestendige mantelzorgwoning dichtbij huis.']]
    .map(function(f){return '<div class="panel">'+I(f[0])+'<h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>'}).join('')+'</div></div></section>';
 }
 function pageLogin(t){
@@ -463,9 +461,9 @@ function open3d(mode){
 /* ---------- router ---------- */
 var route='home';
 function render(){
-  var raw=(location.hash||'#home').slice(1).replace(/^aurora-28$/,'aurora-24'),mm=raw.match(/^configurator-([1-8])$/),h=mm?['configurator',mm[1]]:[raw];route=h[0]||'home';
+  var raw=(location.hash||'#home').slice(1).replace(/^aurora-28$/,'aurora-24').replace(/^zakelijk$/,'over-ons'),mm=raw.match(/^configurator-([1-8])$/),h=mm?['configurator',mm[1]]:[raw];route=h[0]||'home';
   if(route==='configurator'){S.step=(h[1]&&+h[1]>=1&&+h[1]<=8)?+h[1]:1;}
-  var pages={home:pageHome,modellen:pageModellen,configurator:pageConfig,inspiratie:pageInspiratie,zakelijk:pageZakelijk,'over-ons':pageOver,contact:pageContact,'aurora-24':pageA28,'mijn-nmk':function(){return pageLogin('Mijn NMK')},beheer:function(){return pageLogin('Beheer')}};
+  var pages={home:pageHome,modellen:pageModellen,configurator:pageConfig,inspiratie:pageInspiratie,'over-ons':pageOver,contact:pageContact,'aurora-24':pageA28,'mijn-nmk':function(){return pageLogin('Mijn NMK')},beheer:function(){return pageLogin('Beheer')}};
   if(!pages[route])route='home';
   if(route!=='contact')wantReserve=false;
   var META={home:['NMK Living | Luxe modulaire woningen – turnkey en overal te plaatsen','Stijlvolle modulaire woningen, volledig naar wens samen te stellen en turnkey opgeleverd. Aurora 24 vanaf € 39.900.'],
@@ -474,8 +472,7 @@ function render(){
    configurator:['Configurator | Stel je modulaire woning samen – NMK Living','Kies model, gevel, interieur, keuken, badkamer en installaties en zie direct je prijs.'],
    contact:['Vrijblijvende offerte aanvragen – NMK Living','Binnen 2 werkdagen een complete PDF-offerte voor jouw modulaire woning. Invullen duurt minder dan een minuut.'],
    inspiratie:['Inspiratie | Modulaire woningen in elk seizoen – NMK Living','Laat je inspireren door de woningen en interieurs van NMK Living.'],
-   zakelijk:['Zakelijk | Modulaire units voor recreatie, kantoor en zorg – NMK Living','Modulaire verhuurunits, kantoorruimte en mantelzorgwoningen, turnkey opgeleverd.'],
-   'over-ons':['Over NMK Living | Modular homes for a better tomorrow','NMK Living ontwerpt en bouwt luxe modulaire woningen die overal te plaatsen zijn.']}[route]||['NMK Living','Luxe modulaire woningen.'];
+   'over-ons':['Over NMK Living | Modular homes for a better tomorrow','NMK Living ontwerpt en bouwt luxe modulaire woningen voor iedereen: particulieren en bedrijven, overal te plaatsen.']}[route]||['NMK Living','Luxe modulaire woningen.'];
   document.title=META[0];var md=document.querySelector('meta[name=description]');if(md)md.setAttribute('content',META[1]);
   app.innerHTML=pages[route]();
   document.body.classList.toggle('over-hero',route==='home'||route==='modellen'||route==='aurora-24'||route==='inspiratie'||route==='zakelijk'||route==='over-ons');
